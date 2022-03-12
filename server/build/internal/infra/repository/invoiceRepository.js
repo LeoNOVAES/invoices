@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,8 +56,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var model_1 = require("../../domain/invoice/model");
 var alreadyExists_1 = __importDefault(require("../../commons/errors/alreadyExists"));
-var InvoiceRepository = /** @class */ (function () {
-    function InvoiceRepository() {
+var repository_1 = __importDefault(require("./repository"));
+var InvoiceRepository = /** @class */ (function (_super) {
+    __extends(InvoiceRepository, _super);
+    function InvoiceRepository(model) {
+        return _super.call(this, model) || this;
     }
     InvoiceRepository.prototype.save = function (data) {
         return __awaiter(this, void 0, void 0, function () {
@@ -51,7 +69,7 @@ var InvoiceRepository = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         number = data.number;
-                        return [4 /*yield*/, this.find(null, number)];
+                        return [4 /*yield*/, this.findInvoices(null, number)];
                     case 1:
                         exists = _a.sent();
                         if (exists)
@@ -62,17 +80,7 @@ var InvoiceRepository = /** @class */ (function () {
             });
         });
     };
-    InvoiceRepository.prototype.update = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, model_1.InvoiceModel.findByIdAndUpdate(data._id, data)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    InvoiceRepository.prototype.find = function (id, number) {
+    InvoiceRepository.prototype.findInvoices = function (id, number) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -80,27 +88,43 @@ var InvoiceRepository = /** @class */ (function () {
                             .or([
                             { number: number },
                             { _id: id },
-                        ])];
+                        ])
+                            .populate(['company', 'category', 'owner'])];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    InvoiceRepository.prototype.findAll = function () {
+    InvoiceRepository.prototype.findAllInvoices = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, model_1.InvoiceModel.find().populate(['company', 'category'])];
+                    case 0: return [4 /*yield*/, model_1.InvoiceModel.find()
+                            .populate(['company', 'category', 'owner'])];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    InvoiceRepository.prototype.delete = function (id) {
+    InvoiceRepository.prototype.updateInvoice = function (id, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var filter;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        filter = [{ _id: id }];
+                        return [4 /*yield*/, model_1.InvoiceModel
+                                .findOneAndUpdate(filter, data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    InvoiceRepository.prototype.deleteInvoice = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, model_1.InvoiceModel.findByIdAndDelete(id)];
+                    case 0: return [4 /*yield*/, model_1.InvoiceModel.findOneAndDelete({ _id: id })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -109,5 +133,5 @@ var InvoiceRepository = /** @class */ (function () {
         });
     };
     return InvoiceRepository;
-}());
-exports.default = new InvoiceRepository();
+}(repository_1.default));
+exports.default = new InvoiceRepository(model_1.InvoiceModel);

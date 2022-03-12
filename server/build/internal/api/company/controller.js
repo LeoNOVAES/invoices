@@ -66,12 +66,14 @@ var CompanyController = /** @class */ (function () {
     };
     CompanyController.prototype.update = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, error_2;
+            var id, body, data, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, service_1.default.update(req.body)];
+                        id = req.params.id;
+                        body = req.body;
+                        return [4 /*yield*/, service_1.default.update(id, body)];
                     case 1:
                         data = _a.sent();
                         res.status(200).json(data);

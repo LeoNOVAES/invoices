@@ -1,6 +1,4 @@
 import { Types } from "mongoose";
-import { Category } from "../category/interface";
-import { Company } from "../company/interface";
 
 export interface Invoice {
     _id?: string,
@@ -10,5 +8,6 @@ export interface Invoice {
     month: string,
     receivedAt: string,
     category: Types.ObjectId,
-    company: Types.ObjectId
+    company: Types.ObjectId,
+    owner: Types.ObjectId
 }

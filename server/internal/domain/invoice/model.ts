@@ -15,6 +15,10 @@ const schema = new Schema<Invoice>({
         type: 'ObjectId',
         ref: 'Company',
     },
+    owner: {
+        type: 'ObjectId',
+        ref: 'User',
+    },
 }, {
     timestamps: true
 });

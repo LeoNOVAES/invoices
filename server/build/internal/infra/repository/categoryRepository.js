@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,40 +54,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var alreadyExists_1 = __importDefault(require("../../commons/errors/alreadyExists"));
 var model_1 = require("../../domain/category/model");
-var CategoryController = /** @class */ (function () {
-    function CategoryController() {
+var repository_1 = __importDefault(require("./repository"));
+var CategoryRepository = /** @class */ (function (_super) {
+    __extends(CategoryRepository, _super);
+    function CategoryRepository(model) {
+        return _super.call(this, model) || this;
     }
-    CategoryController.prototype.save = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var name, exists;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        name = data.name;
-                        return [4 /*yield*/, this.find(null, name)];
-                    case 1:
-                        exists = _a.sent();
-                        if (exists)
-                            throw new alreadyExists_1.default('already exists');
-                        return [4 /*yield*/, new model_1.CategoryModel(data).save()];
-                    case 2: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    CategoryController.prototype.update = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, model_1.CategoryModel.findByIdAndUpdate(data._id, data)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    CategoryController.prototype.find = function (id, name) {
+    CategoryRepository.prototype.find = function (id, name) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -86,28 +75,6 @@ var CategoryController = /** @class */ (function () {
             });
         });
     };
-    CategoryController.prototype.findAll = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, model_1.CategoryModel.find()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    CategoryController.prototype.delete = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, model_1.CategoryModel.findByIdAndDelete(id)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return CategoryController;
-}());
-exports.default = new CategoryController();
+    return CategoryRepository;
+}(repository_1.default));
+exports.default = new CategoryRepository(model_1.CategoryModel);

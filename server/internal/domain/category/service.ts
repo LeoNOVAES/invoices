@@ -6,8 +6,8 @@ class CategoryService {
         return await CategoryRepository.save(data);
     }
 
-    async update (data: Category): Promise<Category> {
-        return await CategoryRepository.update(data);
+    async update (id, data: Category): Promise<Category> {
+        return await CategoryRepository.update(id, data);
     }
 
     async index (id: string, name: string ): Promise<Category> {

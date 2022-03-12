@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -45,15 +56,18 @@ var InvoiceController = /** @class */ (function () {
     }
     InvoiceController.prototype.create = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, error_1;
+            var userId, body, data, response, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, service_1.default.create(req.body)];
+                        userId = req.userId;
+                        body = req.body;
+                        data = __assign(__assign({}, body), { owner: userId });
+                        return [4 /*yield*/, service_1.default.create(data)];
                     case 1:
-                        data = _a.sent();
-                        res.status(201).json(data);
+                        response = _a.sent();
+                        res.status(201).json(response);
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();
@@ -66,18 +80,21 @@ var InvoiceController = /** @class */ (function () {
     };
     InvoiceController.prototype.update = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, error_2;
+            var body, id, data, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, service_1.default.update(req.body)];
+                        body = req.body;
+                        id = req.params.id;
+                        return [4 /*yield*/, service_1.default.update(id, body)];
                     case 1:
                         data = _a.sent();
                         res.status(200).json(data);
                         return [3 /*break*/, 3];
                     case 2:
                         error_2 = _a.sent();
+                        console.log('[error] - ', error_2);
                         res.status(error_2.status || 500).json(error_2);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -110,19 +127,19 @@ var InvoiceController = /** @class */ (function () {
     };
     InvoiceController.prototype.indexAll = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, error_4;
+            var userId, data, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, service_1.default.indexAll()];
+                        userId = req.userId;
+                        return [4 /*yield*/, service_1.default.indexAll(userId)];
                     case 1:
                         data = _a.sent();
                         res.status(200).json(data);
                         return [3 /*break*/, 3];
                     case 2:
                         error_4 = _a.sent();
-                        console.log('\n\n\n error -> ', error_4);
                         res.status(error_4.status || 500).json(error_4);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -132,12 +149,13 @@ var InvoiceController = /** @class */ (function () {
     };
     InvoiceController.prototype.delete = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, error_5;
+            var id, userId, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         id = req.params.id;
+                        userId = req.userId;
                         return [4 /*yield*/, service_1.default.delete(id)];
                     case 1:
                         _a.sent();
@@ -145,7 +163,6 @@ var InvoiceController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_5 = _a.sent();
-                        console.log('\n\n\n error -> ', error_5);
                         res.status(error_5.status || 500).json(error_5);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];

@@ -16,6 +16,10 @@ var schema = new mongoose_1.Schema({
         type: 'ObjectId',
         ref: 'Company',
     },
+    owner: {
+        type: 'ObjectId',
+        ref: 'User',
+    },
 }, {
     timestamps: true
 });

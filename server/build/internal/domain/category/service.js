@@ -53,11 +53,11 @@ var CategoryService = /** @class */ (function () {
             });
         });
     };
-    CategoryService.prototype.update = function (data) {
+    CategoryService.prototype.update = function (id, data) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, categoryRepository_1.default.update(data)];
+                    case 0: return [4 /*yield*/, categoryRepository_1.default.update(id, data)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

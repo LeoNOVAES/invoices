@@ -2,25 +2,33 @@ import { Request, Response } from 'express';
 import InvoiceService from '../../domain/invoice/service'
 
 class InvoiceController {
-    async create (req: Request, res: Response) {
+    async create (req, res) {
         try {
-            const data = await InvoiceService.create(req.body);
-            res.status(201).json(data);
+            const { userId } = req;
+            const { body } = req;
+            const data = { ...body, owner: userId };
+
+            const response = await InvoiceService.create(data);
+            res.status(201).json(response);
         } catch (error: any) {
             res.status(error.status || 500).json(error);
         }
     }
 
-    async update (req: Request, res: Response) {
+    async update (req, res) {
         try {
-            const data = await InvoiceService.update(req.body);
+            const { body } = req;
+            const { id } = req.params;
+ 
+            const data = await InvoiceService.update(id, body);
             res.status(200).json(data);
         } catch (error: any) {
+            console.log('[error] - ', error);
             res.status(error.status || 500).json(error);
         }
     }
 
-    async index (req: Request, res: Response) {
+    async index (req, res) {
         try {
             const id = req.query.id as string;
             const number = req.query.number as string;
@@ -32,23 +40,24 @@ class InvoiceController {
         }
     }
 
-    async indexAll (req: Request, res: Response) {
+    async indexAll (req, res) {
         try {
-            const data = await InvoiceService.indexAll();
+            const { userId } = req;
+            const data = await InvoiceService.indexAll(userId);
             res.status(200).json(data);
         } catch (error: any) {
-            console.log('\n\n\n error -> ', error)
             res.status(error.status || 500).json(error);
         }
+
     }
 
-    async delete (req: Request, res: Response) {
+    async delete (req, res) {
         try {
             const { id } = req.params;
+            const { userId } = req;
             await InvoiceService.delete(id);
             res.status(200).json();
         } catch (error: any) {
-            console.log('\n\n\n error -> ', error)
             res.status(error.status || 500).json(error);
         }
     }

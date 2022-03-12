@@ -9,6 +9,8 @@ import HandleMiddleware from './internal/domain/middlewares/handler';
 import CompanyRoutes from './internal/api/company/routes';
 import CategoryRoutes from './internal/api/category/routes'
 import InvoiceRoutes from './internal/api/invoice/routes'
+import UserRoutes from './internal/api/user/routes'
+import ExpensesRoutes from './internal/api/expenses/routes'
 
 const app = express();
 app.use(express.json());
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use(CompanyRoutes);
 app.use(CategoryRoutes);
 app.use(InvoiceRoutes);
+app.use(UserRoutes);
+app.use(ExpensesRoutes);
 
 app.get('/healthcheck', (req, res) => {
     res.send('everything ok');

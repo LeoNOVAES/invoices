@@ -13,7 +13,10 @@ class CompanyController {
 
     async update (req: Request, res: Response) {
         try {
-            const data = await CompanyService.update(req.body);
+            const { id } = req.params;
+            const { body } = req;
+
+            const data = await CompanyService.update(id, body);
             res.status(200).json(data);
         } catch (error: any) {
             res.status(error.status).json(error);

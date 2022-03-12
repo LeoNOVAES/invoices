@@ -6,20 +6,20 @@ class InvoiceService {
         return await InvoiceRepository.save(data);
     }
 
-    async update (data: Invoice): Promise<Invoice> {
-        return await InvoiceRepository.update(data);
+    async update (id: string, data: Invoice): Promise<Invoice> {
+        return await InvoiceRepository.updateInvoice(id, data);
     }
 
     async index (id: string, number: string ): Promise<Invoice> {
-        return await InvoiceRepository.find(id, number);
+        return await InvoiceRepository.findInvoices(id, number);
     }
 
-    async indexAll (): Promise<Invoice[]> {
-        return await InvoiceRepository.findAll();
+    async indexAll (owner: string): Promise<Invoice[]> {
+        return await InvoiceRepository.findAllInvoices();
     }
 
     async delete (id: string): Promise<void> {
-        return await InvoiceRepository.delete(id);
+        return await InvoiceRepository.deleteInvoice(id);
     }
 }
 

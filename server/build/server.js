@@ -9,11 +9,15 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var routes_1 = __importDefault(require("./internal/api/company/routes"));
 var routes_2 = __importDefault(require("./internal/api/category/routes"));
 var routes_3 = __importDefault(require("./internal/api/invoice/routes"));
+var routes_4 = __importDefault(require("./internal/api/user/routes"));
+var routes_5 = __importDefault(require("./internal/api/expenses/routes"));
 var app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(routes_1.default);
 app.use(routes_2.default);
 app.use(routes_3.default);
+app.use(routes_4.default);
+app.use(routes_5.default);
 app.get('/healthcheck', function (req, res) {
     res.send('everything ok');
 });

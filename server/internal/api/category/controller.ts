@@ -13,10 +13,13 @@ class CategoryController {
 
     async update (req: Request, res: Response) {
         try {
-            const data = await CategoryService.update(req.body);
+            const { id } = req.params;
+            const { body } = req;
+
+            const data = await CategoryService.update(id, body);
             res.status(200).json(data);
         } catch (error: any) {
-            res.status(error.status || 500).json(error);
+            res.status(error.status).json(error);
         }
     }
 

@@ -53,11 +53,11 @@ var InvoiceService = /** @class */ (function () {
             });
         });
     };
-    InvoiceService.prototype.update = function (data) {
+    InvoiceService.prototype.update = function (id, data) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, invoiceRepository_1.default.update(data)];
+                    case 0: return [4 /*yield*/, invoiceRepository_1.default.updateInvoice(id, data)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -67,17 +67,17 @@ var InvoiceService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, invoiceRepository_1.default.find(id, number)];
+                    case 0: return [4 /*yield*/, invoiceRepository_1.default.findInvoices(id, number)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    InvoiceService.prototype.indexAll = function () {
+    InvoiceService.prototype.indexAll = function (owner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, invoiceRepository_1.default.findAll()];
+                    case 0: return [4 /*yield*/, invoiceRepository_1.default.findAllInvoices()];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -87,7 +87,7 @@ var InvoiceService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, invoiceRepository_1.default.delete(id)];
+                    case 0: return [4 /*yield*/, invoiceRepository_1.default.deleteInvoice(id)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

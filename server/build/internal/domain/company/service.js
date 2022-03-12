@@ -53,11 +53,11 @@ var CompanyService = /** @class */ (function () {
             });
         });
     };
-    CompanyService.prototype.update = function (data) {
+    CompanyService.prototype.update = function (id, data) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, companyRepository_1.default.update(data)];
+                    case 0: return [4 /*yield*/, companyRepository_1.default.update(id, data)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -67,7 +67,7 @@ var CompanyService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, companyRepository_1.default.find(id, name, fiscalNumber, corporativeName)];
+                    case 0: return [4 /*yield*/, companyRepository_1.default.findCompany(id, name, fiscalNumber, corporativeName)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -95,4 +95,4 @@ var CompanyService = /** @class */ (function () {
     };
     return CompanyService;
 }());
-exports.default = new CompanyService();
+exports.default = new CompanyService;
