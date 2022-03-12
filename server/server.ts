@@ -1,6 +1,7 @@
 
 import express from "express";
 import mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
 
 // MIDDLEWARE
 import HandleMiddleware from './internal/domain/middlewares/handler';
@@ -12,6 +13,8 @@ import InvoiceRoutes from './internal/api/invoice/routes'
 import UserRoutes from './internal/api/user/routes'
 import ExpensesRoutes from './internal/api/expenses/routes'
 
+
+const config = dotenv.config();
 const app = express();
 app.use(express.json());
 
@@ -25,7 +28,8 @@ app.get('/healthcheck', (req, res) => {
     res.send('everything ok');
 });
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb+srv://leandronovaes:53Gst52nybl0qhHy@cluster0.xj0qd.mongodb.net/invoices?retryWrites=true&w=majority');
+console.log(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGO_URL || '');
 
 const PORT = 3333;
 
